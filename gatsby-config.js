@@ -1,3 +1,9 @@
+const dotenv = require('dotenv')
+
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config()
+}
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Starter Blog`,
@@ -128,5 +134,45 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `k6qpgwwqs94v`,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+      }
+    },
   ],
 }
+
+
+// https://stackoverflow.com/questions/68898616/how-to-optionally-query-references-in-gatsby-contentful-rich-text
+// https://www.gatsbyjs.com/blog/how-to-use-the-contentful-rich-text-field-with-gatsby/
+
+/*
+
+{
+	allContentfulPage {
+		edges {
+			node {
+				title
+        slug
+				created
+        documentation {
+					raw
+        }
+        guidelines {
+					raw
+        }
+        accessibility {
+					raw
+        }
+        code {
+        	raw
+        }
+      }
+    }
+  }
+}
+
+*/ 
+
