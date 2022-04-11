@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `XDS Doc POC`,
     author: {
       name: `Kyle Mathews`,
       summary: `who lives and works in San Francisco building useful things.`,
@@ -119,7 +119,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
+        name: `XDS Doc POC`,
         short_name: `GatsbyJS`,
         start_url: `/`,
         background_color: `#ffffff`,
@@ -137,9 +137,19 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `k6qpgwwqs94v`,
+        spaceId: process.env.SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
       }
+    },
+    `gatsby-plugin-emotion`,
+    {
+      resolve: `gatsby-plugin-emotion`,
+      options: {
+        sourceMap: true,
+        autoLabel: "dev-only",
+        labelFormat: `[local]`,
+        cssPropOptimization: true,
+      },
     },
   ],
 }
@@ -147,32 +157,4 @@ module.exports = {
 
 // https://stackoverflow.com/questions/68898616/how-to-optionally-query-references-in-gatsby-contentful-rich-text
 // https://www.gatsbyjs.com/blog/how-to-use-the-contentful-rich-text-field-with-gatsby/
-
-/*
-
-{
-	allContentfulPage {
-		edges {
-			node {
-				title
-        slug
-				created
-        documentation {
-					raw
-        }
-        guidelines {
-					raw
-        }
-        accessibility {
-					raw
-        }
-        code {
-        	raw
-        }
-      }
-    }
-  }
-}
-
-*/ 
 
