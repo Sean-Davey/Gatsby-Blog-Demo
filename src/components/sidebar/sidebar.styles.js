@@ -5,11 +5,12 @@ const defaultStyles = () => {
   return css`
     background-color: #0E1A41;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
-    padding: 2.5rem;
-
+    bottom: 0;
+    padding: 1.5rem;
+    overflow: auto;
     a {
         color: white;  
         text-decoration: none;
