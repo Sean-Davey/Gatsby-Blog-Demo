@@ -3,8 +3,9 @@ const path = require(`path`)
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  // Defines a template each xds documentation page / component
-  const xdsPage = path.resolve(`./src/templates/xds-page-contentful.js`)
+  // Defines a template for each xds documentation page / component
+  const componentUsagePage = path.resolve(`./src/templates/componentUsage.js`)
+  const guidelinesPage = path.resolve(`./src/templates/guidelines.js`)
 
   // Get the contentful pages 
   const result = await graphql(
@@ -15,39 +16,62 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             node {
               slug
               title
+              internal {
+                type
+              }
           }
         }
       }
+      allContentfulGuidelines {
+        edges {
+          node {
+            slug
+            title
+            internal {
+              type
+            }
+        }
+      }
+    }
     }
     `
   )
 
   if (result.errors) {
     reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
+      `There was an error loading your pages`,
       result.errors
     )
     return
   }
 
-  const posts = result.data.allContentfulPage.edges
+  const componentPosts = result.data.allContentfulPage.edges
+  const guidelinePosts = result.data.allContentfulGuidelines.edges
 
-  // Create blog posts pages
-  // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
+
+  // Create pages based on contentful content types - currently (component specs) and (guidelines) only
   // `context` is available in the template as a prop and as a variable in GraphQL
 
-  if (posts.length > 0) {
-    posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+  if (componentPosts.length > 0) {
+    componentPosts.forEach((post) => {
 
       createPage({
         path: post.node.slug,
-        component: xdsPage,
+        component: componentUsagePage,
         context: {
           slug: post.node.slug,
-          previousPostId,
-          nextPostId,
+        },
+      })
+    })
+  }
+  if (guidelinePosts.length > 0) {
+    guidelinePosts.forEach((post) => {
+
+      createPage({
+        path: post.node.slug,
+        component: guidelinesPage,
+        context: {
+          slug: post.node.slug,
         },
       })
     })
