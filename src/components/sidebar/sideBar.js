@@ -28,9 +28,9 @@ export default function SideBar() {
       `}
       render={data => (
         <StyledSideBar>
-          <img height="35px" style={{marginBottom: '2rem'}} src={WordMark} alt="XDS Wordmark"/>
+          <img height="35px" style={{marginBottom: '1.25rem'}} src={WordMark} alt="XDS Wordmark"/>
           <ol style={{ listStyle: `none` }}>
-          <p style={{color: '#45bce5', fontWeight: 'bold'}}> - Component Specs </p>
+          <p style={{color: '#45bce5', fontWeight: 'bold'}}> Component Specs </p>
             {data.allContentfulPage.edges.map(({ node }) => {
             return (
               <li key={node.slug}>
@@ -40,7 +40,8 @@ export default function SideBar() {
               </li>
               )
               })}
-          <p style={{color: '#45bce5', fontWeight: 'bold', marginTop: '2rem'}}> - XDS Guidelines </p>
+              <hr style={{marginTop: '2rem'}}/>
+          <p style={{color: '#45bce5', fontWeight: 'bold', marginTop: '2rem'}}> XDS Guidelines </p>
             {data.allContentfulGuidelines.edges.map(({ node }) => {
             return (
               <li key={node.slug}>
