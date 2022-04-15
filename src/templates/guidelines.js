@@ -2,7 +2,6 @@ import * as React from "react"
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { BLOCKS } from "@contentful/rich-text-types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
@@ -32,9 +31,6 @@ const guidelinesTemplate = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo
-        title={post.title}
-      />
       <article
         className="blog-post"
         itemScope

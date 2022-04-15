@@ -1,8 +1,7 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { BLOCKS } from "@contentful/rich-text-types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
@@ -29,16 +28,12 @@ const componentUsageTemplate = ({ data, location }) => {
   const a11yOutput = renderRichText(post.accessibility);
   const guidelinesOutput = renderRichText(post.guidelines);
   const documentation = renderRichText(post.documentation, documentationOptions)
-
-
+  const meshComponentLinks = renderRichText(post.code)[0].props.children[0];
 
   console.log(post);
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo
-        title={post.title}
-      />
       <article
         className="blog-post"
         itemScope
@@ -54,9 +49,9 @@ const componentUsageTemplate = ({ data, location }) => {
           {guidelinesOutput}
           <hr/>
           {a11yOutput}
-          <Link to={post.code.raw} itemProp="url">
+          <a href={meshComponentLinks} target="_blank">
             <span>Mesh Component Library Implementation</span>
-          </Link>
+          </a>
         </header>
         <hr />
       </article>
